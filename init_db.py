@@ -1,12 +1,18 @@
+import os
 from pymongo import MongoClient
+from dotenv import load_dotenv
+from pathlib import Path
 from datetime import datetime
 
 import pymongo
 
 
 def initialize_database():
+    ENV_PATH = Path(__file__).parent / ".env"
+    load_dotenv(ENV_PATH)
+
     try:
-        client = MongoClient("mongodb://localhost:27017/")
+        client = MongoClient(f"mongodb://{os.getenv("MONGO_DB_HOST")}:27017/")
         db = client["db-messages"]
         users_collection = db["messages"]
 

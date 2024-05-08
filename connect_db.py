@@ -17,7 +17,8 @@ def create_connect() -> MongoClient:
 
 
 if __name__ == "__main__":
-    client = MongoClient("mongodb://localhost:27017/")
+    load_dotenv(ENV_PATH)
+    client = MongoClient(f"mongodb://{os.getenv("MONGO_DB_HOST")}:27017/")
     db = client["db-messages"]
     collection = db["messages"]
     cats = collection.find()
